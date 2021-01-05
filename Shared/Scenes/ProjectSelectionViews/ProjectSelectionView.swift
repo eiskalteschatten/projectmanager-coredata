@@ -52,6 +52,13 @@ struct ProjectSelectionView: View {
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                         .background(selectKeeper == project.id ? Color.accentColor : Color.clear)
                         .cornerRadius(5.0)
+                        .onTapGesture(count: 2) {
+                            selectKeeper = project.id
+                            openProject(project: project)
+                        }
+                        .onTapGesture {
+                            selectKeeper = project.id
+                        }
                         .contextMenu {
                             Button(action: {
                                 openProject(project: project)
@@ -84,13 +91,6 @@ struct ProjectSelectionView: View {
                                 Image(systemName: "trash")
                                 #endif
                             }
-                        }
-                        .onTapGesture(count: 2) {
-                            selectKeeper = project.id
-                            openProject(project: project)
-                        }
-                        .onTapGesture(count: 1) {
-                            selectKeeper = project.id
                         }
                     }
                     .onDelete(perform: confirmDeleteProject)
