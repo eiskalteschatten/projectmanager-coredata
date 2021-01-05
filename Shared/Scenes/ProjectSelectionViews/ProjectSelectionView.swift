@@ -51,18 +51,6 @@ struct ProjectSelectionView: View {
                                 #endif
                             }
                             
-                            Button(action: {
-                                if let index = self.projects.firstIndex(of: project) {
-                                    print("Rename \(project.name!)")
-                                }
-                            }) {
-                                Text("Rename Project")
-                                
-                                #if !os(macOS)
-                                Image(systemName: "pencil")
-                                #endif
-                            }
-                            
                             Divider()
                             
                             Button(action: {
@@ -99,7 +87,7 @@ struct ProjectSelectionView: View {
                     }
                 }
                 .notMacOS() { $0.padding(.top) }
-                .alert(isPresented: self.$showDeleteConfirmation) {
+                .alert(isPresented: $showDeleteConfirmation) {
                     Alert(
                         title: Text("Delete project?"),
                         message: Text("Are you sure you want to delete this project? This action cannot be done."),
