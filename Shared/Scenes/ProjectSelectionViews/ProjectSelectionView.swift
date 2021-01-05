@@ -17,11 +17,36 @@ struct ProjectSelectionView: View {
     private var projects: FetchedResults<Project>
 
     var body: some View {
-        List {
-            ForEach(projects) { project in
-                Text(project.name!)
+        Group {
+            if projects.count > 0 {
+                List {
+                    ForEach(projects) { project in
+                        Text(project.name!)
+                    }
+                    .onDelete(perform: deleteProject)
+                }
             }
-            .onDelete(perform: deleteProject)
+            else {
+                VStack {
+                    #if os(macOS)
+                    Image(nsImage: NSApplication.shared.applicationIconImage)
+                    #else
+                    if let appIconImage = self.getAppIcon() {
+                        Image(uiImage: appIconImage)
+                    }
+                    #endif
+                    
+                    Text("Welcome to ProjectManager!")
+                        .font(.title)
+                        .padding(.bottom, 10)
+                    
+                    Text("To get started, create a new project.")
+                        .padding(.bottom, 30)
+                    
+                    Button("Create New Project", action: addProject)
+                }
+                .frame(minWidth: 500, minHeight: 400)
+            }
         }
         .toolbar {
             #if os(iOS)
@@ -32,6 +57,7 @@ struct ProjectSelectionView: View {
                 Label("Add Project", systemImage: "plus")
             }
         }
+        .navigationTitle("Manage Projects")
     }
 
     private func addProject() {
@@ -66,6 +92,16 @@ struct ProjectSelectionView: View {
             }
         }
     }
+    
+    #if !os(macOS)
+    private func getAppIcon() -> UIImage? {
+        guard let iconsDictionary = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String:Any],
+              let primaryIconsDictionary = iconsDictionary["CFBundlePrimaryIcon"] as? [String:Any],
+              let iconFiles = primaryIconsDictionary["CFBundleIconFiles"] as? [String],
+              let lastIcon = iconFiles.last else { return nil }
+        return UIImage(named: lastIcon)
+    }
+    #endif
 }
 
 struct ProjectSelectionView_Previews: PreviewProvider {
