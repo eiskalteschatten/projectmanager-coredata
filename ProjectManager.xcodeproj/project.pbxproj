@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9311EB0F25A510AC002E03E4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311EB0E25A510AC002E03E4 /* ProjectView.swift */; };
 		9311EB1025A510AC002E03E4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311EB0E25A510AC002E03E4 /* ProjectView.swift */; };
+		9370E1BF25A524A100C9CF26 /* ProjectSelectionMacOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9370E1BE25A524A100C9CF26 /* ProjectSelectionMacOSView.swift */; };
+		9370E1C525A524DA00C9CF26 /* ProjectSelectionViewiOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9370E1C425A524DA00C9CF26 /* ProjectSelectionViewiOSView.swift */; };
 		93EAC9DA25A4C8ED000EA83B /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9D925A4C8ED000EA83B /* Tests_iOS.swift */; };
 		93EAC9E525A4C8ED000EA83B /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9E425A4C8ED000EA83B /* Tests_macOS.swift */; };
 		93EAC9E725A4C8ED000EA83B /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9BB25A4C8EC000EA83B /* ProjectManager.xcdatamodeld */; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		9311EB0E25A510AC002E03E4 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
+		9370E1BE25A524A100C9CF26 /* ProjectSelectionMacOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionMacOSView.swift; sourceTree = "<group>"; };
+		9370E1C425A524DA00C9CF26 /* ProjectSelectionViewiOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionViewiOSView.swift; sourceTree = "<group>"; };
 		93EAC9BC25A4C8EC000EA83B /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		93EAC9BD25A4C8EC000EA83B /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		93EAC9BE25A4C8EC000EA83B /* ProjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionView.swift; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 			isa = PBXGroup;
 			children = (
 				93EAC9BE25A4C8EC000EA83B /* ProjectSelectionView.swift */,
+				9370E1BE25A524A100C9CF26 /* ProjectSelectionMacOSView.swift */,
+				9370E1C425A524DA00C9CF26 /* ProjectSelectionViewiOSView.swift */,
 			);
 			path = ProjectSelectionViews;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 				93EAC9E925A4C8ED000EA83B /* ProjectManagerApp.swift in Sources */,
 				9311EB0F25A510AC002E03E4 /* ProjectView.swift in Sources */,
 				93EAC9EB25A4C8ED000EA83B /* ProjectSelectionView.swift in Sources */,
+				9370E1C525A524DA00C9CF26 /* ProjectSelectionViewiOSView.swift in Sources */,
 				93EACA2625A4D3A9000EA83B /* GlobalExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +378,7 @@
 				93EAC9EE25A4C8ED000EA83B /* Persistence.swift in Sources */,
 				93EAC9EA25A4C8ED000EA83B /* ProjectManagerApp.swift in Sources */,
 				9311EB1025A510AC002E03E4 /* ProjectView.swift in Sources */,
+				9370E1BF25A524A100C9CF26 /* ProjectSelectionMacOSView.swift in Sources */,
 				93EAC9EC25A4C8ED000EA83B /* ProjectSelectionView.swift in Sources */,
 				93EACA2725A4D3A9000EA83B /* GlobalExtensions.swift in Sources */,
 			);
