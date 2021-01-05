@@ -40,10 +40,38 @@ struct ProjectSelectionView: View {
                         }
                         .padding(5.0)
                         .contextMenu {
-                            Button("Delete Project") {
+                            Button(action: addProject) {
+                                Text("New Project")
+                                
+                                #if !os(macOS)
+                                Image(systemName: "plus")
+                                #endif
+                            }
+                            
+                            Button(action: {
+                                if let index = self.projects.firstIndex(of: project) {
+                                    print("Rename \(project.name!)")
+                                }
+                            }) {
+                                Text("Rename Project")
+                                
+                                #if !os(macOS)
+                                Image(systemName: "pencil")
+                                #endif
+                            }
+                            
+                            Divider()
+                            
+                            Button(action: {
                                 if let index = self.projects.firstIndex(of: project) {
                                     self.deleteProject(offsets: IndexSet(integer: index))
                                 }
+                            }) {
+                                Text("Delete Project")
+                                
+                                #if !os(macOS)
+                                Image(systemName: "trash")
+                                #endif
                             }
                         }
                     }
