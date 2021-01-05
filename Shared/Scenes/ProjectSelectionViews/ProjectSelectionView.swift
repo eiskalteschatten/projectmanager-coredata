@@ -10,12 +10,15 @@ import CoreData
 
 struct ProjectSelectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @State var showDeleteConfirmation = false
+    @State var indexSetToDelete: IndexSet = []
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: true), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
         animation: .default)
     private var projects: FetchedResults<Project>
-
+    
+    
     var body: some View {
         ProjectSelectionViewWrapper {
             if projects.count > 0 {
@@ -64,7 +67,7 @@ struct ProjectSelectionView: View {
                             
                             Button(action: {
                                 if let index = self.projects.firstIndex(of: project) {
-                                    self.deleteProject(offsets: IndexSet(integer: index))
+                                    self.confirmDeleteProject(offsets: IndexSet(integer: index))
                                 }
                             }) {
                                 Text("Delete Project")
@@ -75,7 +78,7 @@ struct ProjectSelectionView: View {
                             }
                         }
                     }
-                    .onDelete(perform: deleteProject)
+                    .onDelete(perform: confirmDeleteProject)
                 }
                 .listStyle(listStyle)
                 .toolbar() {
@@ -96,6 +99,14 @@ struct ProjectSelectionView: View {
                     }
                 }
                 .notMacOS() { $0.padding(.top) }
+                .alert(isPresented: self.$showDeleteConfirmation) {
+                    Alert(
+                        title: Text("Delete project?"),
+                        message: Text("Are you sure you want to delete this project? This action cannot be done."),
+                        primaryButton: .default(Text("No")),
+                        secondaryButton: .default(Text("Yes"), action: deleteProject)
+                    )
+                }
                 .navigationTitle("Manage Projects")
             }
             else {
@@ -150,10 +161,15 @@ struct ProjectSelectionView: View {
             }
         }
     }
+    
+    private func confirmDeleteProject(offsets: IndexSet) {
+        self.indexSetToDelete = offsets
+        self.showDeleteConfirmation = true
+    }
 
-    private func deleteProject(offsets: IndexSet) {
+    private func deleteProject() {
         withAnimation {
-            offsets.map { projects[$0] }.forEach(viewContext.delete)
+            self.indexSetToDelete.map { projects[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
