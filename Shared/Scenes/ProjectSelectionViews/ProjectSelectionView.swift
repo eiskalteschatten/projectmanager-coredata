@@ -110,7 +110,7 @@ struct ProjectSelectionView: View {
             let newProject = Project(context: viewContext)
             newProject.createdAt = Date()
             newProject.updatedAt = Date()
-            newProject.name = "Test Project"
+            newProject.name = "Untitled Project"
 
             do {
                 try viewContext.save()
@@ -165,6 +165,7 @@ fileprivate struct ProjectSelectionViewWrapper<Content>: View where Content: Vie
         NavigationView {
             content()
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         #endif
     }
 }
