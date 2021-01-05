@@ -17,7 +17,7 @@ struct ProjectSelectionView: View {
     private var projects: FetchedResults<Project>
 
     var body: some View {
-        Group {
+        NavigationView {
             if projects.count > 0 {
                 #if os(macOS)
                 let listStyle = DefaultListStyle()
@@ -50,6 +50,19 @@ struct ProjectSelectionView: View {
                     .onDelete(perform: deleteProject)
                 }
                 .listStyle(listStyle)
+                .toolbar() {
+                    #if os(iOS)
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        EditButton()
+                    }
+                    #endif
+
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: addProject) {
+                            Label("Add Project", systemImage: "plus")
+                        }
+                    }
+                }
             }
             else {
                 VStack {
@@ -71,15 +84,13 @@ struct ProjectSelectionView: View {
                     Button("Create New Project", action: addProject)
                 }
                 .frame(minWidth: 500, minHeight: 400)
-            }
-        }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
-
-            Button(action: addProject) {
-                Label("Add Project", systemImage: "plus")
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: addProject) {
+                            Label("Add Project", systemImage: "plus")
+                        }
+                    }
+                }
             }
         }
         .navigationTitle("Manage Projects")
