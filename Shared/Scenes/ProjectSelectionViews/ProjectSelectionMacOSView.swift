@@ -122,7 +122,7 @@ struct ProjectSelectionMacOSView: View {
             let newProject = Project(context: viewContext)
             newProject.createdAt = Date()
             newProject.updatedAt = Date()
-            newProject.name = "Untitled Project"
+            newProject.name = DEFAULT_NEW_PROJECT_NAME
 
             do {
                 try viewContext.save()
