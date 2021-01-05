@@ -53,6 +53,16 @@ struct ProjectSelectionView: View {
                         .background(selectKeeper == project.id ? Color.accentColor : Color.clear)
                         .cornerRadius(5.0)
                         .contextMenu {
+                            Button(action: {
+                                openProject(project: project)
+                            }) {
+                                Text("Open Project")
+                                
+                                #if !os(macOS)
+                                Image(systemName: "doc")
+                                #endif
+                            }
+                            
                             Button(action: addProject) {
                                 Text("New Project")
                                 
@@ -77,11 +87,7 @@ struct ProjectSelectionView: View {
                         }
                         .onTapGesture(count: 2) {
                             selectKeeper = project.id
-                            appState.activeProjects.append(project)
-                            
-                            if let url = URL(string: "projectmanager://project") {
-                                openURL(url)
-                            }
+                            openProject(project: project)
                         }
                         .onTapGesture(count: 1) {
                             selectKeeper = project.id
@@ -150,6 +156,14 @@ struct ProjectSelectionView: View {
                     }
                 }
             }
+        }
+    }
+    
+    private func openProject(project: Project) {
+        appState.activeProjects.append(project)
+        
+        if let url = URL(string: "projectmanager://project") {
+            openURL(url)
         }
     }
 
