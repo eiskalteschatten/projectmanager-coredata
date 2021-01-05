@@ -19,12 +19,30 @@ struct ProjectSelectionView: View {
     var body: some View {
         Group {
             if projects.count > 0 {
+                #if os(macOS)
+                let listStyle = DefaultListStyle()
+                #else
+                let listStyle = InsetGroupedListStyle()
+                #endif
+                
                 List {
                     ForEach(projects) { project in
-                        Text(project.name!)
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(project.name!)
+                                .bold()
+                                .macOS() { $0.font(.system(size: 15)) }
+                            
+                            let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.long)
+                            Text(updatedAt)
+                                .opacity(0.5)
+                                .notMacOS() { $0.font(.system(size: 15)) }
+                            
+                        }
+                        .padding(5.0)
                     }
                     .onDelete(perform: deleteProject)
                 }
+                .listStyle(listStyle)
             }
             else {
                 VStack {

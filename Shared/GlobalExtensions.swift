@@ -9,7 +9,6 @@ import SwiftUI
 
 extension View {
     @ViewBuilder
-    // Add support for conditional modifiers on views
     func `if`<Transform: View>(_ condition: Bool, transform: (Self) -> Transform) -> some View {
         if condition {
           transform(self)
@@ -17,6 +16,24 @@ extension View {
         else {
           self
         }
+    }
+    
+    @ViewBuilder
+    func `macOS`<Transform: View>(transform: (Self) -> Transform) -> some View {
+        #if os(macOS)
+        transform(self)
+        #else
+        self
+        #endif
+    }
+    
+    @ViewBuilder
+    func `notMacOS`<Transform: View>(transform: (Self) -> Transform) -> some View {
+        #if !os(macOS)
+        transform(self)
+        #else
+        self
+        #endif
     }
 }
 
