@@ -51,13 +51,17 @@ struct ProjectSelectionView: View {
                 }
                 .listStyle(listStyle)
                 .toolbar() {
-                    #if os(iOS)
+                    #if os(macOS)
+                    let toolbarItemPlacement = ToolbarItemPlacement.automatic
+                    #else
+                    let toolbarItemPlacement = ToolbarItemPlacement.navigationBarTrailing
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
                         EditButton()
                     }
                     #endif
 
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: toolbarItemPlacement) {
                         Button(action: addProject) {
                             Label("Add Project", systemImage: "plus")
                         }
@@ -85,7 +89,13 @@ struct ProjectSelectionView: View {
                 }
                 .frame(minWidth: 500, minHeight: 400)
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    #if os(macOS)
+                    let toolbarItemPlacement = ToolbarItemPlacement.automatic
+                    #else
+                    let toolbarItemPlacement = ToolbarItemPlacement.navigationBarTrailing
+                    #endif
+                    
+                    ToolbarItem(placement: toolbarItemPlacement) {
                         Button(action: addProject) {
                             Label("Add Project", systemImage: "plus")
                         }
