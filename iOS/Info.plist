@@ -48,5 +48,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>projectmanager</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>projectmanager</string>
+		</dict>
+	</array>
 </dict>
 </plist>

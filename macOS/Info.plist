@@ -26,5 +26,16 @@
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>© 2021 Alex Seifert</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>projectmanager</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>projectmanager</string>
+		</dict>
+	</array>
 </dict>
 </plist>

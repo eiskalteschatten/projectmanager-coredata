@@ -16,5 +16,11 @@ struct ProjectManagerApp: App {
             ProjectSelectionView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
+        
+        WindowGroup("Project") {
+            ProjectView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+        }
+        .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
     }
 }

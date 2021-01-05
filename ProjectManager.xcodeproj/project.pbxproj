@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9311EB0F25A510AC002E03E4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311EB0E25A510AC002E03E4 /* ProjectView.swift */; };
+		9311EB1025A510AC002E03E4 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311EB0E25A510AC002E03E4 /* ProjectView.swift */; };
 		93EAC9DA25A4C8ED000EA83B /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9D925A4C8ED000EA83B /* Tests_iOS.swift */; };
 		93EAC9E525A4C8ED000EA83B /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9E425A4C8ED000EA83B /* Tests_macOS.swift */; };
 		93EAC9E725A4C8ED000EA83B /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9BB25A4C8EC000EA83B /* ProjectManager.xcdatamodeld */; };
@@ -43,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9311EB0E25A510AC002E03E4 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		93EAC9BC25A4C8EC000EA83B /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		93EAC9BD25A4C8EC000EA83B /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		93EAC9BE25A4C8EC000EA83B /* ProjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionView.swift; sourceTree = "<group>"; };
@@ -95,6 +98,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9311EB0D25A5109B002E03E4 /* ProjectViews */ = {
+			isa = PBXGroup;
+			children = (
+				9311EB0E25A510AC002E03E4 /* ProjectView.swift */,
+			);
+			path = ProjectViews;
+			sourceTree = "<group>";
+		};
 		93EAC9B525A4C8EC000EA83B = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +181,7 @@
 		93EACA0325A4C8FB000EA83B /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9311EB0D25A5109B002E03E4 /* ProjectViews */,
 				93EACA1025A4CB6F000EA83B /* ProjectSelectionViews */,
 			);
 			path = Scenes;
@@ -344,6 +356,7 @@
 				93EACA2D25A4D3D9000EA83B /* Helpers.swift in Sources */,
 				93EAC9ED25A4C8ED000EA83B /* Persistence.swift in Sources */,
 				93EAC9E925A4C8ED000EA83B /* ProjectManagerApp.swift in Sources */,
+				9311EB0F25A510AC002E03E4 /* ProjectView.swift in Sources */,
 				93EAC9EB25A4C8ED000EA83B /* ProjectSelectionView.swift in Sources */,
 				93EACA2625A4D3A9000EA83B /* GlobalExtensions.swift in Sources */,
 			);
@@ -357,6 +370,7 @@
 				93EACA2E25A4D3D9000EA83B /* Helpers.swift in Sources */,
 				93EAC9EE25A4C8ED000EA83B /* Persistence.swift in Sources */,
 				93EAC9EA25A4C8ED000EA83B /* ProjectManagerApp.swift in Sources */,
+				9311EB1025A510AC002E03E4 /* ProjectView.swift in Sources */,
 				93EAC9EC25A4C8ED000EA83B /* ProjectSelectionView.swift in Sources */,
 				93EACA2725A4D3A9000EA83B /* GlobalExtensions.swift in Sources */,
 			);

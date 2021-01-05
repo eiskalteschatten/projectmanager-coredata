@@ -10,6 +10,8 @@ import CoreData
 
 struct ProjectSelectionView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.openURL) var openURL
+    
     @State var showDeleteConfirmation = false
     @State var indexSetToDelete: IndexSet = []
 
@@ -147,6 +149,10 @@ struct ProjectSelectionView: View {
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
+        }
+        
+        if let url = URL(string: "projectmanager://project") {
+            openURL(url)
         }
     }
     
