@@ -7,8 +7,14 @@
 
 import SwiftUI
 
+class AppState: ObservableObject {
+    @Published var activeProjects: [Project] = []
+}
+
 @main
 struct ProjectManagerApp: App {
+    @StateObject var appState = AppState()
+    
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {

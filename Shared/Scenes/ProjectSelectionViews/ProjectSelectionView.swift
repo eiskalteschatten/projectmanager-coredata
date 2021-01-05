@@ -9,17 +9,19 @@ import SwiftUI
 import CoreData
 
 struct ProjectSelectionView: View {
+    @StateObject var appState = AppState()
+    
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.openURL) var openURL
     
     @State var showDeleteConfirmation = false
     @State var indexSetToDelete: IndexSet = []
+    @State var selectKeeper: ObjectIdentifier?
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: true), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
         animation: .default)
     private var projects: FetchedResults<Project>
-    
     
     var body: some View {
         ProjectSelectionViewWrapper {
@@ -32,18 +34,24 @@ struct ProjectSelectionView: View {
                 
                 List {
                     ForEach(projects) { project in
-                        VStack(alignment: .leading, spacing: 3) {
-                            Text(project.name!)
-                                .bold()
-                                .macOS() { $0.font(.system(size: 15)) }
+                        HStack {
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(project.name!)
+                                    .bold()
+                                    .macOS() { $0.font(.system(size: 15)) }
+                                
+                                let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.long)
+                                Text(updatedAt)
+                                    .if (selectKeeper != project.id) { $0.opacity(0.5) }
+                                    .notMacOS() { $0.font(.system(size: 15)) }
+                            }
                             
-                            let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.long)
-                            Text(updatedAt)
-                                .opacity(0.5)
-                                .notMacOS() { $0.font(.system(size: 15)) }
-                            
+                            Spacer()
                         }
-                        .padding(5.0)
+                        .padding(7.0)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                        .background(selectKeeper == project.id ? Color.accentColor : Color.clear)
+                        .cornerRadius(5.0)
                         .contextMenu {
                             Button(action: addProject) {
                                 Text("New Project")
@@ -66,6 +74,17 @@ struct ProjectSelectionView: View {
                                 Image(systemName: "trash")
                                 #endif
                             }
+                        }
+                        .onTapGesture(count: 2) {
+                            selectKeeper = project.id
+                            appState.activeProjects.append(project)
+                            
+                            if let url = URL(string: "projectmanager://project") {
+                                openURL(url)
+                            }
+                        }
+                        .onTapGesture(count: 1) {
+                            selectKeeper = project.id
                         }
                     }
                     .onDelete(perform: confirmDeleteProject)
@@ -143,6 +162,7 @@ struct ProjectSelectionView: View {
 
             do {
                 try viewContext.save()
+                appState.activeProjects.append(newProject)
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
