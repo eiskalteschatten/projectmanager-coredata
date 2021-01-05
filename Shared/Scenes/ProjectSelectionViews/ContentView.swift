@@ -12,32 +12,34 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: true), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var projects: FetchedResults<Project>
 
     var body: some View {
         List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+            ForEach(projects) { project in
+                Text(project.name!)
             }
-            .onDelete(perform: deleteItems)
+            .onDelete(perform: deleteProject)
         }
         .toolbar {
             #if os(iOS)
             EditButton()
             #endif
 
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
+            Button(action: addProject) {
+                Label("Add Project", systemImage: "plus")
             }
         }
     }
 
-    private func addItem() {
+    private func addProject() {
         withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            let newProject = Project(context: viewContext)
+            newProject.createdAt = Date()
+            newProject.updatedAt = Date()
+            newProject.name = "Test Project"
 
             do {
                 try viewContext.save()
@@ -50,9 +52,9 @@ struct ContentView: View {
         }
     }
 
-    private func deleteItems(offsets: IndexSet) {
+    private func deleteProject(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
+            offsets.map { projects[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
@@ -65,13 +67,6 @@ struct ContentView: View {
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
