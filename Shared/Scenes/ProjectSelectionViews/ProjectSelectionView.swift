@@ -67,6 +67,8 @@ struct ProjectSelectionView: View {
                         }
                     }
                 }
+                .notMacOS() { $0.padding(.top) }
+                .navigationTitle("Manage Projects")
             }
             else {
                 VStack {
@@ -88,22 +90,19 @@ struct ProjectSelectionView: View {
                     Button("Create New Project", action: addProject)
                 }
                 .frame(minWidth: 500, minHeight: 400)
-                .toolbar {
-                    #if os(macOS)
-                    let toolbarItemPlacement = ToolbarItemPlacement.automatic
-                    #else
-                    let toolbarItemPlacement = ToolbarItemPlacement.navigationBarTrailing
-                    #endif
-                    
-                    ToolbarItem(placement: toolbarItemPlacement) {
-                        Button(action: addProject) {
-                            Label("Add Project", systemImage: "plus")
+                .notMacOS() {
+                    $0.toolbar {
+                        #if !os(macOS)
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: addProject) {
+                                Label("Add Project", systemImage: "plus")
+                            }
                         }
+                        #endif
                     }
                 }
             }
         }
-        .navigationTitle("Manage Projects")
     }
 
     private func addProject() {
