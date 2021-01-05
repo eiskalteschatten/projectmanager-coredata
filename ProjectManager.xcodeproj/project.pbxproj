@@ -19,6 +19,10 @@
 		93EAC9EE25A4C8ED000EA83B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9BF25A4C8EC000EA83B /* Persistence.swift */; };
 		93EAC9EF25A4C8ED000EA83B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93EAC9C025A4C8ED000EA83B /* Assets.xcassets */; };
 		93EAC9F025A4C8ED000EA83B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93EAC9C025A4C8ED000EA83B /* Assets.xcassets */; };
+		93EACA2625A4D3A9000EA83B /* GlobalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EACA2525A4D3A9000EA83B /* GlobalExtensions.swift */; };
+		93EACA2725A4D3A9000EA83B /* GlobalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EACA2525A4D3A9000EA83B /* GlobalExtensions.swift */; };
+		93EACA2D25A4D3D9000EA83B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EACA2C25A4D3D9000EA83B /* Helpers.swift */; };
+		93EACA2E25A4D3D9000EA83B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EACA2C25A4D3D9000EA83B /* Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,8 @@
 		93EAC9E025A4C8ED000EA83B /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93EAC9E425A4C8ED000EA83B /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		93EAC9E625A4C8ED000EA83B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93EACA2525A4D3A9000EA83B /* GlobalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalExtensions.swift; sourceTree = "<group>"; };
+		93EACA2C25A4D3D9000EA83B /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +115,8 @@
 				93EAC9BF25A4C8EC000EA83B /* Persistence.swift */,
 				93EAC9C025A4C8ED000EA83B /* Assets.xcassets */,
 				93EAC9BB25A4C8EC000EA83B /* ProjectManager.xcdatamodeld */,
+				93EACA2525A4D3A9000EA83B /* GlobalExtensions.swift */,
+				93EACA2C25A4D3D9000EA83B /* Helpers.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -333,9 +341,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				93EAC9E725A4C8ED000EA83B /* ProjectManager.xcdatamodeld in Sources */,
+				93EACA2D25A4D3D9000EA83B /* Helpers.swift in Sources */,
 				93EAC9ED25A4C8ED000EA83B /* Persistence.swift in Sources */,
 				93EAC9E925A4C8ED000EA83B /* ProjectManagerApp.swift in Sources */,
 				93EAC9EB25A4C8ED000EA83B /* ProjectSelectionView.swift in Sources */,
+				93EACA2625A4D3A9000EA83B /* GlobalExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,9 +354,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				93EAC9E825A4C8ED000EA83B /* ProjectManager.xcdatamodeld in Sources */,
+				93EACA2E25A4D3D9000EA83B /* Helpers.swift in Sources */,
 				93EAC9EE25A4C8ED000EA83B /* Persistence.swift in Sources */,
 				93EAC9EA25A4C8ED000EA83B /* ProjectManagerApp.swift in Sources */,
 				93EAC9EC25A4C8ED000EA83B /* ProjectSelectionView.swift in Sources */,
+				93EACA2725A4D3A9000EA83B /* GlobalExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
