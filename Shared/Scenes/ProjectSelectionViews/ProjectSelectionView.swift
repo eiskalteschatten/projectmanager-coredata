@@ -48,6 +48,7 @@ struct ProjectSelectionView: View {
                             
                             Spacer()
                         }
+                        .contentShape(Rectangle())
                         .padding(7.0)
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                         .background(selectKeeper == project.id ? Color.accentColor : Color.clear)
