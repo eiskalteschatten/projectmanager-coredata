@@ -39,6 +39,13 @@ struct ProjectSelectionView: View {
                             
                         }
                         .padding(5.0)
+                        .contextMenu {
+                            Button("Delete Project") {
+                                if let index = self.projects.firstIndex(of: project) {
+                                    self.deleteProject(offsets: IndexSet(integer: index))
+                                }
+                            }
+                        }
                     }
                     .onDelete(perform: deleteProject)
                 }
