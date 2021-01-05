@@ -17,7 +17,7 @@ struct ProjectSelectionView: View {
     private var projects: FetchedResults<Project>
 
     var body: some View {
-        NavigationView {
+        ProjectSelectionViewWrapper {
             if projects.count > 0 {
                 #if os(macOS)
                 let listStyle = DefaultListStyle()
@@ -148,6 +148,26 @@ struct ProjectSelectionView: View {
         return UIImage(named: lastIcon)
     }
     #endif
+}
+
+fileprivate struct ProjectSelectionViewWrapper<Content>: View where Content: View {
+    let content: () -> Content
+
+    init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+    }
+
+    var body: some View {
+        #if os(macOS)
+        Group {
+            content()
+        }
+        #else
+        NavigationView {
+            content()
+        }
+        #endif
+    }
 }
 
 struct ProjectSelectionView_Previews: PreviewProvider {
