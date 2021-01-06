@@ -23,10 +23,10 @@ struct ProjectManagerApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         
-        WindowGroup("Project") {
-            ProjectView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-        }
-        .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
+//        WindowGroup("Project") {
+//            ProjectView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//        }
+//        .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
     }
 }

@@ -23,7 +23,7 @@ struct ProjectSelectionViewiOSView: View {
             if projects.count > 0 {
                 List {
                     ForEach(projects) { project in
-                        NavigationLink(destination: ProjectView()) {
+                        NavigationLink(destination: ProjectView(project: project)) {
                             HStack {
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text(project.name!)
