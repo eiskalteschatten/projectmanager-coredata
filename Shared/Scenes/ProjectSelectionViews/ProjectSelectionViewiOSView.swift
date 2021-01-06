@@ -78,7 +78,6 @@ struct ProjectSelectionViewiOSView: View {
                         }
                     }
                 }
-                .padding(.top)
                 .alert(isPresented: $showDeleteConfirmation) {
                     Alert(
                         title: Text("Delete project?"),
