@@ -16,5 +16,8 @@ struct ProjectManagerApp: App {
             ProjectSelectionView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
+        .commands {
+            SidebarCommands()
+        }
     }
 }
