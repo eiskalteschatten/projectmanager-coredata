@@ -20,17 +20,14 @@ struct ProjectInfoView: View {
     }
     
     var body: some View {
-        HStack {
-            Spacer()
+        VStack {
+            TextField("Project Name", text: $projectName)
+                .frame(maxWidth: 300)
             
-            VStack() {
-                TextField("Project Name", text: $projectName)
-                TextField("Project Description", text: $projectDescription)
-            }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-            
-            Spacer()
+            TextField("Project Description", text: $projectDescription)
+                .frame(maxWidth: 300)
         }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
     }
 }
 
