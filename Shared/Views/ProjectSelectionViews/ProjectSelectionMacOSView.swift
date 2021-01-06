@@ -14,6 +14,7 @@ struct ProjectSelectionMacOSView: View {
     @State var indexSetToDelete: IndexSet = []
     @State var selectKeeper: ObjectIdentifier?
     @State var selectedProject: Project?
+    @State var showProject: Bool? = false
     @State var isNewProject = false
 
     @FetchRequest(
@@ -22,7 +23,10 @@ struct ProjectSelectionMacOSView: View {
     private var projects: FetchedResults<Project>
     
     var body: some View {
-        if selectedProject == nil {
+        if showProject! && selectedProject != nil {
+            ProjectView(project: selectedProject!, isNewProject: isNewProject, showProject: $showProject)
+        }
+        else {
             if projects.count > 0 {
                 List {
                     ForEach(projects) { project in
@@ -52,6 +56,7 @@ struct ProjectSelectionMacOSView: View {
                         .onTapGesture {
                             selectKeeper = project.id
                             self.selectedProject = project
+                            self.showProject = true
                         }
                         .contextMenu {
                             Button(action: {
@@ -110,9 +115,6 @@ struct ProjectSelectionMacOSView: View {
                 .frame(minWidth: 500, minHeight: 400)
             }
         }
-        else {
-            ProjectView(project: $selectedProject, isNewProject: isNewProject)
-        }
     }
     
     private func addProject() {
@@ -126,6 +128,7 @@ struct ProjectSelectionMacOSView: View {
                 try viewContext.save()
                 self.selectedProject = newProject
                 self.isNewProject = true
+                self.showProject = true
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

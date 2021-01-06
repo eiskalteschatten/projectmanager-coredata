@@ -14,13 +14,15 @@ fileprivate enum ProjectScreen: Int {
 struct ProjectView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var navSelection: ProjectScreen?
-    @Binding private var project: Project?
+    @Binding private var showProject: Bool?
     
+    private var project: Project
     private var isNewProject: Bool
     
-    init (project: Binding<Project?>, isNewProject: Bool = false) {
-        self._project = project
+    init (project: Project, isNewProject: Bool = false, showProject: Binding<Bool?> = .constant(false)) {
+        self.project = project
         self.isNewProject = isNewProject
+        self._showProject = showProject
         
         if isNewProject {
             self._navSelection = State(initialValue: .projectInfo)
@@ -44,7 +46,7 @@ struct ProjectView: View {
                 $0.toolbar() {
                     ToolbarItem(placement: .automatic) {
                         Button(action: {
-                            self.project = nil
+                            self.showProject = false
                         }) {
                             Label("Back to the Project Manager", systemImage: "chevron.left")
                         }
@@ -52,13 +54,13 @@ struct ProjectView: View {
                 }
             }
         }
-        .navigationTitle(project?.name ?? "Project View")
+        .navigationTitle(project.name ?? "Project View")
     }
 }
 
 struct ProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectView(project: .constant(createMockProject()), isNewProject: false)
+        ProjectView(project: createMockProject(), isNewProject: false)
             .environment(\.managedObjectContext, mockViewContext)
     }
 }
