@@ -14,8 +14,8 @@ fileprivate enum ProjectScreen: Int {
 struct ProjectView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var navSelection: ProjectScreen?
+    @Binding private var project: Project
     
-    private var project: Project
     private var isNewProject: Bool
     
     init (project: Project, isNewProject: Bool = false) {
@@ -40,6 +40,17 @@ struct ProjectView: View {
                 )
             }
             .listStyle(SidebarListStyle())
+            .macOS() {
+                $0.toolbar() {
+                    ToolbarItem(placement: .automatic) {
+                        Button(action: {
+                            print("back")
+                        }) {
+                            Label("Back to the Project Manager", systemImage: "chevron.left")
+                        }
+                    }
+                }
+            }
         }
         .navigationTitle(project.name ?? "Project View")
     }
