@@ -12,7 +12,7 @@ struct ProjectSelectionViewiOSView: View {
     
     @State var showDeleteConfirmation = false
     @State var indexSetToDelete: IndexSet = []
-    @State var newProjectId: ObjectIdentifier?
+    @State var navProjectId: ObjectIdentifier?
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: false), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
@@ -24,7 +24,7 @@ struct ProjectSelectionViewiOSView: View {
             if projects.count > 0 {
                 List {
                     ForEach(projects) { project in
-                        NavigationLink(destination: ProjectView(project: project), tag: project.id, selection: $newProjectId, label: {
+                        NavigationLink(destination: ProjectView(project: project), tag: project.id, selection: $navProjectId, label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text(project.name!)
@@ -44,6 +44,11 @@ struct ProjectSelectionViewiOSView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                             .cornerRadius(5.0)
                             .contextMenu {
+                                Button(action: { navProjectId = project.id }) {
+                                    Text("Open Project")
+                                    Image(systemName: "doc")
+                                }
+                                
                                 Button(action: addProject) {
                                     Text("New Project")
                                     Image(systemName: "plus")
@@ -123,7 +128,7 @@ struct ProjectSelectionViewiOSView: View {
 
             do {
                 try viewContext.save()
-                self.newProjectId = newProject.id
+                self.navProjectId = newProject.id
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
