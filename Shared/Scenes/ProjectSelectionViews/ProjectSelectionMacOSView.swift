@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct ProjectSelectionMacOSView: View {
-    @StateObject var appState = AppState()
-    
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.openURL) var openURL
     
     @State var showDeleteConfirmation = false
     @State var indexSetToDelete: IndexSet = []
@@ -29,7 +26,6 @@ struct ProjectSelectionMacOSView: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 3) {
                             Text(project.name!)
-                                .bold()
                                 .font(.system(size: 15))
                             
                             HStack {
@@ -41,18 +37,18 @@ struct ProjectSelectionMacOSView: View {
                         }
                         
                         Spacer()
+                        
+                        Image(systemName: "chevron.right")
                     }
                     .contentShape(Rectangle())
-                    .padding(7.0)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 15)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                     .background(selectKeeper == project.id ? Color.accentColor : Color.clear)
                     .cornerRadius(5.0)
-                    .onTapGesture(count: 2) {
-                        selectKeeper = project.id
-                        openProject(project: project)
-                    }
                     .onTapGesture {
                         selectKeeper = project.id
+                        openProject(project: project)
                     }
                     .contextMenu {
                         Button(action: {
@@ -113,13 +109,9 @@ struct ProjectSelectionMacOSView: View {
     }
     
     private func openProject(project: Project) {
-        appState.activeProjects.append(project)
-        
-        if let url = URL(string: "projectmanager://project") {
-            openURL(url)
-        }
+        print("open project")
     }
-
+    
     private func addProject() {
         withAnimation {
             let newProject = Project(context: viewContext)
@@ -129,17 +121,12 @@ struct ProjectSelectionMacOSView: View {
 
             do {
                 try viewContext.save()
-                appState.activeProjects.append(newProject)
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
-        }
-        
-        if let url = URL(string: "projectmanager://project") {
-            openURL(url)
         }
     }
     
