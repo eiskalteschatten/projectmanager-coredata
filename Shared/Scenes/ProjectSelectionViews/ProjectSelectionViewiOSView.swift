@@ -30,7 +30,6 @@ struct ProjectSelectionViewiOSView: View {
                                     Text(project.name!)
                                         .bold()
                                     
-                                    
                                     HStack {
                                         let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.short)
                                         Text(updatedAt)
@@ -39,8 +38,6 @@ struct ProjectSelectionViewiOSView: View {
                                     .font(.system(size: 15))
                                     .opacity(0.5)
                                 }
-                                
-                                Spacer()
                             }
                             .contentShape(Rectangle())
                             .padding(7.0)
