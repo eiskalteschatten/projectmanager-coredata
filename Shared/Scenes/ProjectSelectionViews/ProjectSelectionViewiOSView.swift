@@ -26,52 +26,54 @@ struct ProjectSelectionViewiOSView: View {
             if projects.count > 0 {
                 List {
                     ForEach(projects) { project in
-                        HStack {
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(project.name!)
-                                    .bold()
-                                
-                                
-                                HStack {
-                                    let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.short)
-                                    Text(updatedAt)
-                                    Text(project.projectDescription ?? "")
+                        NavigationLink(destination: ProjectView()) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text(project.name!)
+                                        .bold()
+                                    
+                                    
+                                    HStack {
+                                        let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.short)
+                                        Text(updatedAt)
+                                        Text(project.projectDescription ?? "")
+                                    }
+                                    .font(.system(size: 15))
+                                    .opacity(0.5)
                                 }
-                                .font(.system(size: 15))
-                                .opacity(0.5)
+                                
+                                Spacer()
                             }
-                            
-                            Spacer()
-                        }
-                        .contentShape(Rectangle())
-                        .padding(7.0)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                        .cornerRadius(5.0)
-                        .onTapGesture {
-                            openProject(project: project)
-                        }
-                        .contextMenu {
-                            Button(action: {
+                            .contentShape(Rectangle())
+                            .padding(7.0)
+                            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                            .cornerRadius(5.0)
+                            .onTapGesture {
                                 openProject(project: project)
-                            }) {
-                                Text("Open Project")
-                                Image(systemName: "doc")
                             }
-                            
-                            Button(action: addProject) {
-                                Text("New Project")
-                                Image(systemName: "plus")
-                            }
-                            
-                            Divider()
-                            
-                            Button(action: {
-                                if let index = self.projects.firstIndex(of: project) {
-                                    self.confirmDeleteProject(offsets: IndexSet(integer: index))
+                            .contextMenu {
+                                Button(action: {
+                                    openProject(project: project)
+                                }) {
+                                    Text("Open Project")
+                                    Image(systemName: "doc")
                                 }
-                            }) {
-                                Text("Delete Project")
-                                Image(systemName: "trash")
+                                
+                                Button(action: addProject) {
+                                    Text("New Project")
+                                    Image(systemName: "plus")
+                                }
+                                
+                                Divider()
+                                
+                                Button(action: {
+                                    if let index = self.projects.firstIndex(of: project) {
+                                        self.confirmDeleteProject(offsets: IndexSet(integer: index))
+                                    }
+                                }) {
+                                    Text("Delete Project")
+                                    Image(systemName: "trash")
+                                }
                             }
                         }
                     }
