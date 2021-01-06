@@ -14,6 +14,7 @@ struct ProjectSelectionMacOSView: View {
     @State var indexSetToDelete: IndexSet = []
     @State var selectKeeper: ObjectIdentifier?
     @State var navProject: Project?
+    @State var isNewProject = false
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: false), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
@@ -110,7 +111,7 @@ struct ProjectSelectionMacOSView: View {
             }
         }
         else {
-            ProjectView(project: navProject!)
+            ProjectView(project: navProject!, isNewProject: isNewProject)
         }
     }
     
@@ -123,6 +124,8 @@ struct ProjectSelectionMacOSView: View {
 
             do {
                 try viewContext.save()
+                self.navProject = newProject
+                self.isNewProject = true
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

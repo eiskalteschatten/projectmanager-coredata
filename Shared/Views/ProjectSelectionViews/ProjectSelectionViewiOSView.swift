@@ -13,6 +13,7 @@ struct ProjectSelectionViewiOSView: View {
     @State var showDeleteConfirmation = false
     @State var indexSetToDelete: IndexSet = []
     @State var navProjectId: ObjectIdentifier?
+    @State var isNewProject = false
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: false), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
@@ -24,7 +25,7 @@ struct ProjectSelectionViewiOSView: View {
             if projects.count > 0 {
                 List {
                     ForEach(projects) { project in
-                        NavigationLink(destination: ProjectView(project: project), tag: project.id, selection: $navProjectId, label: {
+                        NavigationLink(destination: ProjectView(project: project, isNewProject: isNewProject), tag: project.id, selection: $navProjectId, label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text(project.name!)
@@ -129,6 +130,7 @@ struct ProjectSelectionViewiOSView: View {
             do {
                 try viewContext.save()
                 self.navProjectId = newProject.id
+                self.isNewProject = true
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
