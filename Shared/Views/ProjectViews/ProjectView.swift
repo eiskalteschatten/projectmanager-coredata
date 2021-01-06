@@ -15,15 +15,15 @@ struct ProjectView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var navSelection: ProjectScreen?
     
-    var project: Project
-    var isNewProject: Bool
+    private var project: Project
+    private var isNewProject: Bool
     
     init (project: Project, isNewProject: Bool = false) {
         self.project = project
         self.isNewProject = isNewProject
         
         if isNewProject {
-            self.navSelection = .projectInfo
+            _navSelection = State(initialValue: .projectInfo)
         }
     }
     

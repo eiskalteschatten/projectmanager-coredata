@@ -8,11 +8,29 @@
 import SwiftUI
 
 struct ProjectInfoView: View {
-    var project: Project
+    @State private var projectName: String = "";
+    @State private var projectDescription: String = "";
+    
+    private var project: Project
+    
+    init(project: Project) {
+        self.project = project
+        _projectName = State(initialValue: project.name ?? "")
+        _projectDescription = State(initialValue: project.projectDescription ?? "")
+    }
     
     var body: some View {
-        Text("Project Info")
-//        TextField("Project Name", text: project.name)
+        HStack {
+            Spacer()
+            
+            VStack() {
+                TextField("Project Name", text: $projectName)
+                TextField("Project Description", text: $projectDescription)
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+            
+            Spacer()
+        }
     }
 }
 
