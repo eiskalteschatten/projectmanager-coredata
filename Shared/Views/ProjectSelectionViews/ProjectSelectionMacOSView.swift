@@ -13,7 +13,7 @@ struct ProjectSelectionMacOSView: View {
     @State var showDeleteConfirmation = false
     @State var indexSetToDelete: IndexSet = []
     @State var selectKeeper: ObjectIdentifier?
-    @State var navProject: Project?
+    @State var selectedProject: Project?
     @State var isNewProject = false
 
     @FetchRequest(
@@ -22,7 +22,7 @@ struct ProjectSelectionMacOSView: View {
     private var projects: FetchedResults<Project>
     
     var body: some View {
-        if navProject == nil {
+        if selectedProject == nil {
             if projects.count > 0 {
                 List {
                     ForEach(projects) { project in
@@ -51,11 +51,11 @@ struct ProjectSelectionMacOSView: View {
                         .cornerRadius(5.0)
                         .onTapGesture {
                             selectKeeper = project.id
-                            self.navProject = project
+                            self.selectedProject = project
                         }
                         .contextMenu {
                             Button(action: {
-                                self.navProject = project
+                                self.selectedProject = project
                             }) {
                                 Text("Open Project")
                             }
@@ -111,7 +111,7 @@ struct ProjectSelectionMacOSView: View {
             }
         }
         else {
-            ProjectView(project: navProject!, isNewProject: isNewProject)
+            ProjectView(project: $selectedProject, isNewProject: isNewProject)
         }
     }
     
@@ -124,7 +124,7 @@ struct ProjectSelectionMacOSView: View {
 
             do {
                 try viewContext.save()
-                self.navProject = newProject
+                self.selectedProject = newProject
                 self.isNewProject = true
             } catch {
                 // Replace this implementation with code to handle the error appropriately.

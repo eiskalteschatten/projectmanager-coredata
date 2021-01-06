@@ -11,12 +11,12 @@ struct ProjectInfoView: View {
     @State private var projectName: String = "";
     @State private var projectDescription: String = "";
     
-    private var project: Project
+    private var project: Project?
     
-    init(project: Project) {
+    init(project: Project?) {
         self.project = project
-        _projectName = State(initialValue: project.name ?? "")
-        _projectDescription = State(initialValue: project.projectDescription ?? "")
+        _projectName = State(initialValue: project?.name ?? "")
+        _projectDescription = State(initialValue: project?.projectDescription ?? "")
     }
     
     var body: some View {
