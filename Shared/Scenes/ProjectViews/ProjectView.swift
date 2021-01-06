@@ -26,6 +26,7 @@ struct ProjectView: View {
     
     var body: some View {
         Text(project.name ?? "No project name????")
+            .frame(minWidth: 500, minHeight: 200)
     }
 }
 

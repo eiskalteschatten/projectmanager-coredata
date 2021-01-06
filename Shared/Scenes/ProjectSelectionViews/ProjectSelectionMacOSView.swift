@@ -13,6 +13,7 @@ struct ProjectSelectionMacOSView: View {
     @State var showDeleteConfirmation = false
     @State var indexSetToDelete: IndexSet = []
     @State var selectKeeper: ObjectIdentifier?
+    @State var navProject: Project?
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: false), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
@@ -20,96 +21,97 @@ struct ProjectSelectionMacOSView: View {
     private var projects: FetchedResults<Project>
     
     var body: some View {
-        if projects.count > 0 {
-            List {
-                ForEach(projects) { project in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 3) {
-                            Text(project.name!)
-                                .font(.system(size: 15))
+        if navProject == nil {
+            if projects.count > 0 {
+                List {
+                    ForEach(projects) { project in
+                        HStack {
+                            VStack(alignment: .leading, spacing: 3) {
+                                Text(project.name!)
+                                    .font(.system(size: 15))
+                                
+                                HStack {
+                                    let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.short)
+                                    Text(updatedAt)
+                                    Text(project.projectDescription ?? "")
+                                }
+                                .if (selectKeeper != project.id) { $0.opacity(0.5) }
+                            }
                             
-                            HStack {
-                                let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.short)
-                                Text(updatedAt)
-                                Text(project.projectDescription ?? "")
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                        }
+                        .contentShape(Rectangle())
+                        .padding(.vertical, 10)
+                        .padding(.horizontal, 15)
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+                        .background(selectKeeper == project.id ? Color.accentColor : Color.clear)
+                        .cornerRadius(5.0)
+                        .onTapGesture {
+                            selectKeeper = project.id
+                            self.navProject = project
+                        }
+                        .contextMenu {
+                            Button(action: {
+                                self.navProject = project
+                            }) {
+                                Text("Open Project")
                             }
-                            .if (selectKeeper != project.id) { $0.opacity(0.5) }
+                            
+                            Button(action: addProject) {
+                                Text("New Project")
+                            }
+                            
+                            Divider()
+                            
+                            Button(action: {
+                                if let index = self.projects.firstIndex(of: project) {
+                                    self.confirmDeleteProject(offsets: IndexSet(integer: index))
+                                }
+                            }) {
+                                Text("Delete Project")
+                            }
                         }
-                        
-                        Spacer()
-                        
-                        Image(systemName: "chevron.right")
                     }
-                    .contentShape(Rectangle())
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 15)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-                    .background(selectKeeper == project.id ? Color.accentColor : Color.clear)
-                    .cornerRadius(5.0)
-                    .onTapGesture {
-                        selectKeeper = project.id
-                        openProject(project: project)
-                    }
-                    .contextMenu {
-                        Button(action: {
-                            openProject(project: project)
-                        }) {
-                            Text("Open Project")
-                        }
-                        
+                    .onDelete(perform: confirmDeleteProject)
+                }
+                .toolbar() {
+                    ToolbarItem(placement: .automatic) {
                         Button(action: addProject) {
-                            Text("New Project")
-                        }
-                        
-                        Divider()
-                        
-                        Button(action: {
-                            if let index = self.projects.firstIndex(of: project) {
-                                self.confirmDeleteProject(offsets: IndexSet(integer: index))
-                            }
-                        }) {
-                            Text("Delete Project")
+                            Label("Add Project", systemImage: "plus")
                         }
                     }
                 }
-                .onDelete(perform: confirmDeleteProject)
-            }
-            .toolbar() {
-                ToolbarItem(placement: .automatic) {
-                    Button(action: addProject) {
-                        Label("Add Project", systemImage: "plus")
-                    }
+                .alert(isPresented: $showDeleteConfirmation) {
+                    Alert(
+                        title: Text("Delete project?"),
+                        message: Text("Are you sure you want to delete this project? This action cannot be done."),
+                        primaryButton: .default(Text("No")),
+                        secondaryButton: .default(Text("Yes"), action: deleteProject)
+                    )
                 }
+                .navigationTitle("Manage Projects")
             }
-            .alert(isPresented: $showDeleteConfirmation) {
-                Alert(
-                    title: Text("Delete project?"),
-                    message: Text("Are you sure you want to delete this project? This action cannot be done."),
-                    primaryButton: .default(Text("No")),
-                    secondaryButton: .default(Text("Yes"), action: deleteProject)
-                )
+            else {
+                VStack {
+                    Image(nsImage: NSApplication.shared.applicationIconImage)
+                    
+                    Text("Welcome to ProjectManager!")
+                        .font(.title)
+                        .padding(.bottom, 10)
+                    
+                    Text("To get started, create a new project.")
+                        .padding(.bottom, 30)
+                    
+                    Button("Create New Project", action: addProject)
+                }
+                .frame(minWidth: 500, minHeight: 400)
             }
-            .navigationTitle("Manage Projects")
         }
         else {
-            VStack {
-                Image(nsImage: NSApplication.shared.applicationIconImage)
-                
-                Text("Welcome to ProjectManager!")
-                    .font(.title)
-                    .padding(.bottom, 10)
-                
-                Text("To get started, create a new project.")
-                    .padding(.bottom, 30)
-                
-                Button("Create New Project", action: addProject)
-            }
-            .frame(minWidth: 500, minHeight: 400)
+            ProjectView(project: navProject!)
         }
-    }
-    
-    private func openProject(project: Project) {
-        print("open project")
     }
     
     private func addProject() {
