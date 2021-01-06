@@ -18,7 +18,7 @@ struct ProjectSelectionMacOSView: View {
     @State var selectKeeper: ObjectIdentifier?
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: true), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: false), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
         animation: .default)
     private var projects: FetchedResults<Project>
     
@@ -32,9 +32,12 @@ struct ProjectSelectionMacOSView: View {
                                 .bold()
                                 .font(.system(size: 15))
                             
-                            let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.long)
-                            Text(updatedAt)
-                                .if (selectKeeper != project.id) { $0.opacity(0.5) }
+                            HStack {
+                                let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.short)
+                                Text(updatedAt)
+                                Text(project.projectDescription ?? "")
+                            }
+                            .if (selectKeeper != project.id) { $0.opacity(0.5) }
                         }
                         
                         Spacer()

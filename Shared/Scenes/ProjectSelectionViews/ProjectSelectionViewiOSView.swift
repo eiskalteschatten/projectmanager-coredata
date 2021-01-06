@@ -17,7 +17,7 @@ struct ProjectSelectionViewiOSView: View {
     @State var indexSetToDelete: IndexSet = []
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: true), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: false), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
         animation: .default)
     private var projects: FetchedResults<Project>
     
@@ -31,9 +31,14 @@ struct ProjectSelectionViewiOSView: View {
                                 Text(project.name!)
                                     .bold()
                                 
-                                let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.long)
-                                Text(updatedAt)
-                                    .font(.system(size: 15))
+                                
+                                HStack {
+                                    let updatedAt = getLocalizedDateWithStyle(date: project.updatedAt!, style: DateFormatter.Style.short)
+                                    Text(updatedAt)
+                                    Text(project.projectDescription ?? "")
+                                }
+                                .font(.system(size: 15))
+                                .opacity(0.5)
                             }
                             
                             Spacer()
