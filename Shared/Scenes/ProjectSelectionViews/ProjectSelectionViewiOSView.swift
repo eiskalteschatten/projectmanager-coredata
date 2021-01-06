@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct ProjectSelectionViewiOSView: View {
-    @StateObject var appState = AppState()
-    
     @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.openURL) var openURL
     
     @State var showDeleteConfirmation = false
     @State var indexSetToDelete: IndexSet = []
@@ -48,17 +45,7 @@ struct ProjectSelectionViewiOSView: View {
                             .padding(7.0)
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                             .cornerRadius(5.0)
-                            .onTapGesture {
-                                openProject(project: project)
-                            }
                             .contextMenu {
-                                Button(action: {
-                                    openProject(project: project)
-                                }) {
-                                    Text("Open Project")
-                                    Image(systemName: "doc")
-                                }
-                                
                                 Button(action: addProject) {
                                     Text("New Project")
                                     Image(systemName: "plus")
@@ -130,14 +117,6 @@ struct ProjectSelectionViewiOSView: View {
         .navigationViewStyle(StackNavigationViewStyle())
     }
     
-    private func openProject(project: Project) {
-        appState.activeProjects.append(project)
-        
-        if let url = URL(string: "projectmanager://project") {
-            openURL(url)
-        }
-    }
-
     private func addProject() {
         withAnimation {
             let newProject = Project(context: viewContext)
@@ -147,17 +126,12 @@ struct ProjectSelectionViewiOSView: View {
 
             do {
                 try viewContext.save()
-                appState.activeProjects.append(newProject)
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
             }
-        }
-        
-        if let url = URL(string: "projectmanager://project") {
-            openURL(url)
         }
     }
     
