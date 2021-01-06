@@ -28,12 +28,6 @@ struct ProjectView: View {
     }
     
     var body: some View {
-        #if os(macOS)
-        let listStyle = SidebarListStyle()
-        #else
-        let listStyle = InsetGroupedListStyle()
-        #endif
-        
         NavigationView {
             List {
                 NavigationLink(
@@ -45,7 +39,7 @@ struct ProjectView: View {
                     }
                 )
             }
-            .listStyle(listStyle)
+            .listStyle(SidebarListStyle())
         }
         .navigationTitle(project.name ?? "Project View")
     }
