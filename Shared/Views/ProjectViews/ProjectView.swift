@@ -20,16 +20,6 @@ struct ProjectView: View {
     
     private var isNewProject: Bool
     
-    init (project: Project, isNewProject: Bool = false, showProject: Binding<Bool?> = .constant(false)) {
-        self.isNewProject = isNewProject
-        self._showProject = showProject
-        self.projectStore.activeProject = project
-        
-        if isNewProject {
-            self._navSelection = State(initialValue: .projectInfo)
-        }
-    }
-    
     init (isNewProject: Bool = false, showProject: Binding<Bool?> = .constant(false)) {
         self.isNewProject = isNewProject
         self._showProject = showProject
@@ -91,7 +81,8 @@ fileprivate struct ProjectViewWrapper<Content>: View where Content: View {
 
 struct ProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectView(project: createMockProject(), isNewProject: false)
+        ProjectView(isNewProject: false)
             .environment(\.managedObjectContext, mockViewContext)
+            .environmentObject(ProjectStore(activeProject: createMockProject()))
     }
 }

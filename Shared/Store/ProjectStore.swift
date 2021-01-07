@@ -9,4 +9,8 @@ import SwiftUI
 
 class ProjectStore: ObservableObject {
     @Published var activeProject: Project?
+    
+    init(activeProject: Project? = nil) {
+        self.activeProject = activeProject
+    }
 }

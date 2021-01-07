@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ProjectSelectionViewiOSView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var projectStore: ProjectStore
     
     @State private var showDeleteConfirmation = false
     @State private var indexSetToDelete: IndexSet = []
-    @State private var navProjectId: ObjectIdentifier?
     @State private var isNewProject = false
 
     @FetchRequest(
@@ -25,7 +25,7 @@ struct ProjectSelectionViewiOSView: View {
             if projects.count > 0 {
                 List {
                     ForEach(projects) { project in
-                        NavigationLink(destination: ProjectView(project: project, isNewProject: isNewProject), tag: project.id, selection: $navProjectId, label: {
+                        NavigationLink(destination: ProjectView(isNewProject: isNewProject), tag: project, selection: $projectStore.activeProject, label: {
                             HStack {
                                 VStack(alignment: .leading, spacing: 3) {
                                     Text(project.name!)
@@ -45,7 +45,7 @@ struct ProjectSelectionViewiOSView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
                             .cornerRadius(5.0)
                             .contextMenu {
-                                Button(action: { navProjectId = project.id }) {
+                                Button(action: { projectStore.activeProject = project }) {
                                     Text("Open Project")
                                     Image(systemName: "doc")
                                 }
@@ -129,7 +129,7 @@ struct ProjectSelectionViewiOSView: View {
 
             do {
                 try viewContext.save()
-                self.navProjectId = newProject.id
+                self.projectStore.activeProject = newProject
                 self.isNewProject = true
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
