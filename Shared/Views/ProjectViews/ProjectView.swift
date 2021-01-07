@@ -54,7 +54,6 @@ struct ProjectView: View {
                 }
             }
         }
-        .navigationViewStyle(DefaultNavigationViewStyle())
         .navigationTitle(project.name ?? "Project View")
     }
 }
