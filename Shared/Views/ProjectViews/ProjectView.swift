@@ -30,7 +30,7 @@ struct ProjectView: View {
     }
     
     var body: some View {
-        NavigationView {
+        ProjectViewWrapper {
             List {
                 NavigationLink(
                     destination: ProjectInfoView(project: project),
@@ -54,7 +54,29 @@ struct ProjectView: View {
                 }
             }
         }
+        .navigationViewStyle(DefaultNavigationViewStyle())
         .navigationTitle(project.name ?? "Project View")
+    }
+}
+
+fileprivate struct ProjectViewWrapper<Content>: View where Content: View {
+    let content: () -> Content
+
+    init(@ViewBuilder content: @escaping () -> Content) {
+        self.content = content
+    }
+
+
+    var body: some View {
+        #if os(macOS)
+        NavigationView {
+            content()
+        }
+        #else
+        Group {
+            content()
+        }
+        #endif
     }
 }
 
