@@ -10,12 +10,12 @@ import SwiftUI
 struct ProjectSelectionMacOSView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @State var showDeleteConfirmation = false
-    @State var indexSetToDelete: IndexSet = []
-    @State var selectKeeper: ObjectIdentifier?
-    @State var selectedProject: Project?
-    @State var showProject: Bool? = false
-    @State var isNewProject = false
+    @State private var showDeleteConfirmation = false
+    @State private var indexSetToDelete: IndexSet = []
+    @State private var selectKeeper: ObjectIdentifier?
+    @State private var selectedProject: Project?
+    @State private var showProject: Bool? = false
+    @State private var isNewProject = false
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Project.updatedAt, ascending: false), NSSortDescriptor(keyPath: \Project.name, ascending: true)],
