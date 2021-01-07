@@ -13,14 +13,24 @@ fileprivate enum ProjectScreen: Int {
 
 struct ProjectView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var projectStore: ProjectStore
+    
     @State private var navSelection: ProjectScreen?
     @Binding private var showProject: Bool?
     
-    private var project: Project
     private var isNewProject: Bool
     
     init (project: Project, isNewProject: Bool = false, showProject: Binding<Bool?> = .constant(false)) {
-        self.project = project
+        self.isNewProject = isNewProject
+        self._showProject = showProject
+        self.projectStore.activeProject = project
+        
+        if isNewProject {
+            self._navSelection = State(initialValue: .projectInfo)
+        }
+    }
+    
+    init (isNewProject: Bool = false, showProject: Binding<Bool?> = .constant(false)) {
         self.isNewProject = isNewProject
         self._showProject = showProject
         
@@ -33,7 +43,7 @@ struct ProjectView: View {
         ProjectViewWrapper {
             List {
                 NavigationLink(
-                    destination: ProjectInfoView(project: project),
+                    destination: ProjectInfoView(),
                     tag: ProjectScreen.projectInfo,
                     selection: $navSelection,
                     label: {
@@ -54,7 +64,7 @@ struct ProjectView: View {
                 }
             }
         }
-        .navigationTitle(project.name ?? "Project View")
+        .navigationTitle(projectStore.activeProject?.name ?? "Project View")
     }
 }
 

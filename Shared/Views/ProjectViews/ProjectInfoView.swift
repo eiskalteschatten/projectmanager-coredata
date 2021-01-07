@@ -8,23 +8,34 @@
 import SwiftUI
 
 struct ProjectInfoView: View {
-    @State private var projectName: String = "";
-    @State private var projectDescription: String = "";
+    @EnvironmentObject private var projectStore: ProjectStore
     
-    private var project: Project?
+    private var projectNameBinding: Binding<String> {
+        Binding<String>(
+            get: {
+                return self.projectStore.activeProject?.name ?? ""
+        },
+            set: { newString in
+                self.projectStore.activeProject!.name = newString
+        })
+    }
     
-    init(project: Project?) {
-        self.project = project
-        _projectName = State(initialValue: project?.name ?? "")
-        _projectDescription = State(initialValue: project?.projectDescription ?? "")
+    private var projectDescriptionBinding: Binding<String> {
+        Binding<String>(
+            get: {
+                return self.projectStore.activeProject?.projectDescription ?? ""
+        },
+            set: { newString in
+                self.projectStore.activeProject!.projectDescription = newString
+        })
     }
     
     var body: some View {
         VStack {
-            TextField("Project Name", text: $projectName)
+            TextField("Project Name", text: projectNameBinding)
                 .frame(maxWidth: 300)
             
-            TextField("Project Description", text: $projectDescription)
+            TextField("Project Description", text: projectDescriptionBinding)
                 .frame(maxWidth: 300)
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
@@ -33,6 +44,6 @@ struct ProjectInfoView: View {
 
 struct ProjectInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectInfoView(project: createMockProject()).environment(\.managedObjectContext, mockViewContext)
+        ProjectInfoView().environment(\.managedObjectContext, mockViewContext)
     }
 }

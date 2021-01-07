@@ -17,6 +17,8 @@
 		9370E1C525A524DA00C9CF26 /* ProjectSelectionViewiOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9370E1C425A524DA00C9CF26 /* ProjectSelectionViewiOSView.swift */; };
 		9370E1CB25A5290E00C9CF26 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9370E1CA25A5290E00C9CF26 /* Constants.swift */; };
 		9370E1CC25A5290E00C9CF26 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9370E1CA25A5290E00C9CF26 /* Constants.swift */; };
+		939EBDC325A741140093B2A1 /* ProjectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939EBDC225A741140093B2A1 /* ProjectStore.swift */; };
+		939EBDC425A741140093B2A1 /* ProjectStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939EBDC225A741140093B2A1 /* ProjectStore.swift */; };
 		93EAC9DA25A4C8ED000EA83B /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9D925A4C8ED000EA83B /* Tests_iOS.swift */; };
 		93EAC9E525A4C8ED000EA83B /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9E425A4C8ED000EA83B /* Tests_macOS.swift */; };
 		93EAC9E725A4C8ED000EA83B /* ProjectManager.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93EAC9BB25A4C8EC000EA83B /* ProjectManager.xcdatamodeld */; };
@@ -59,6 +61,7 @@
 		9370E1BE25A524A100C9CF26 /* ProjectSelectionMacOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionMacOSView.swift; sourceTree = "<group>"; };
 		9370E1C425A524DA00C9CF26 /* ProjectSelectionViewiOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionViewiOSView.swift; sourceTree = "<group>"; };
 		9370E1CA25A5290E00C9CF26 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		939EBDC225A741140093B2A1 /* ProjectStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStore.swift; sourceTree = "<group>"; };
 		93EAC9BC25A4C8EC000EA83B /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		93EAC9BD25A4C8EC000EA83B /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		93EAC9BE25A4C8EC000EA83B /* ProjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSelectionView.swift; sourceTree = "<group>"; };
@@ -120,6 +123,14 @@
 			path = ProjectViews;
 			sourceTree = "<group>";
 		};
+		939EBDC125A740FB0093B2A1 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				939EBDC225A741140093B2A1 /* ProjectStore.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		93EAC9B525A4C8EC000EA83B = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +151,7 @@
 				93EAC9BD25A4C8EC000EA83B /* ProjectManagerApp.swift */,
 				93EAC9BF25A4C8EC000EA83B /* Persistence.swift */,
 				93EACA0325A4C8FB000EA83B /* Views */,
+				939EBDC125A740FB0093B2A1 /* Store */,
 				93EACA2525A4D3A9000EA83B /* GlobalExtensions.swift */,
 				93EACA2C25A4D3D9000EA83B /* Helpers.swift */,
 				9370E1CA25A5290E00C9CF26 /* Constants.swift */,
@@ -371,6 +383,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9316D19E25A5F5B2000793E0 /* Mocks.swift in Sources */,
+				939EBDC325A741140093B2A1 /* ProjectStore.swift in Sources */,
 				9316D19225A5F4F3000793E0 /* ProjectInfoView.swift in Sources */,
 				93EAC9E725A4C8ED000EA83B /* ProjectManager.xcdatamodeld in Sources */,
 				93EACA2D25A4D3D9000EA83B /* Helpers.swift in Sources */,
@@ -389,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9316D19F25A5F5B2000793E0 /* Mocks.swift in Sources */,
+				939EBDC425A741140093B2A1 /* ProjectStore.swift in Sources */,
 				9316D19325A5F4F3000793E0 /* ProjectInfoView.swift in Sources */,
 				93EAC9E825A4C8ED000EA83B /* ProjectManager.xcdatamodeld in Sources */,
 				93EACA2E25A4D3D9000EA83B /* Helpers.swift in Sources */,

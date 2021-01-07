@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ProjectSelectionMacOSView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var projectStore: ProjectStore
     
     @State private var showDeleteConfirmation = false
     @State private var indexSetToDelete: IndexSet = []
     @State private var selectKeeper: ObjectIdentifier?
-    @State private var selectedProject: Project?
     @State private var showProject: Bool? = false
     @State private var isNewProject = false
 
@@ -23,8 +23,8 @@ struct ProjectSelectionMacOSView: View {
     private var projects: FetchedResults<Project>
     
     var body: some View {
-        if showProject! && selectedProject != nil {
-            ProjectView(project: selectedProject!, isNewProject: isNewProject, showProject: $showProject)
+        if showProject! && projectStore.activeProject != nil {
+            ProjectView(isNewProject: isNewProject, showProject: $showProject)
         }
         else {
             if projects.count > 0 {
@@ -55,12 +55,12 @@ struct ProjectSelectionMacOSView: View {
                         .cornerRadius(5.0)
                         .onTapGesture {
                             selectKeeper = project.id
-                            self.selectedProject = project
+                            self.projectStore.activeProject = project
                             self.showProject = true
                         }
                         .contextMenu {
                             Button(action: {
-                                self.selectedProject = project
+                                self.projectStore.activeProject = project
                             }) {
                                 Text("Open Project")
                             }
@@ -126,7 +126,7 @@ struct ProjectSelectionMacOSView: View {
 
             do {
                 try viewContext.save()
-                self.selectedProject = newProject
+                self.projectStore.activeProject = newProject
                 self.isNewProject = true
                 self.showProject = true
             } catch {
