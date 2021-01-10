@@ -66,6 +66,9 @@ struct ProjectSelectionViewiOSView: View {
                                     Image(systemName: "trash")
                                 }
                             }
+                            .onAppear() {
+                                projectStore.projectNavStatus = .manager
+                            }
                         })
                     }
                     .onDelete(perform: confirmDeleteProject)
@@ -114,6 +117,9 @@ struct ProjectSelectionViewiOSView: View {
                             Label("Add Project", systemImage: "plus")
                         }
                     }
+                }
+                .onAppear() {
+                    projectStore.projectNavStatus = .noProjects
                 }
             }
         }

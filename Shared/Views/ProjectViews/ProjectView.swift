@@ -55,6 +55,9 @@ struct ProjectView: View {
             }
         }
         .navigationTitle(projectStore.activeProject?.name ?? "Project View")
+        .onAppear() {
+            projectStore.projectNavStatus = .openProject
+        }
     }
 }
 

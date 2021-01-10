@@ -98,6 +98,9 @@ struct ProjectSelectionMacOSView: View {
                     )
                 }
                 .navigationTitle("Manage Projects")
+                .onAppear() {
+                    projectStore.projectNavStatus = .manager
+                }
             }
             else {
                 VStack {
@@ -113,6 +116,9 @@ struct ProjectSelectionMacOSView: View {
                     Button("Create New Project", action: addProject)
                 }
                 .frame(minWidth: 500, minHeight: 400)
+                .onAppear() {
+                    projectStore.projectNavStatus = .noProjects
+                }
             }
         }
     }

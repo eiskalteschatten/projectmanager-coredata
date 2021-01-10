@@ -7,8 +7,13 @@
 
 import SwiftUI
 
+enum ProjectNavStatus {
+    case noProjects, manager, openProject
+}
+
 class ProjectStore: ObservableObject {
     @Published var activeProject: Project?
+    @Published var projectNavStatus: ProjectNavStatus = .noProjects
     
     init(activeProject: Project? = nil) {
         self.activeProject = activeProject
